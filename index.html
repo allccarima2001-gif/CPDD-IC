@@ -100,8 +100,39 @@
     </div>
 
     <script>
-        // ⚠️ REEMPLAZA AQUI TU URL DE GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/library/d/1mj-a-hNjjOvT8Qsj1Zki61PfiUliZF4F9Rrv-D4CRD_k0IoyvqD3CB1O/1';
+        function fin() {
+    let c = 0;
+    preguntas.forEach(p => {
+        if(datos.r[p.num] === p.correcto) c++;
+    });
+    datos.precision = Math.round(c*100/15);
+    
+    let t = '<table><tr><th>P</th><th>Tu</th><th>Correcta</th><th>R</th></tr>';
+    preguntas.forEach(p => {
+        const ok = datos.r[p.num] === p.correcto;
+        t += `<tr><td>P${p.num}</td><td>${datos.r[p.num]}</td><td>${p.correcto}</td><td style="color:${ok?'green':'red'}">${ok?'✓':'✗'}</td></tr>`;
+    });
+    t += '</table>';
+    document.getElementById('res').innerHTML = `<p><strong>Precisión: ${datos.precision}% (${c}/15)</strong></p>${t}<p><button onclick="enviar()">📤 Enviar datos</button></p>`;
+    irA('page-res');
+}
+
+function enviar() {
+    const URL = "https://script.google.com/macros/s/AKfycbxIaE-VKXXdLpnkKxa2fZoivpAq9jQSuxHFS0_8XohKnHZsHRv5zWqTfBsabo9VL8oh/exec";
+    
+    fetch(URL, {
+        method: "POST",
+        body: JSON.stringify(datos)
+    })
+    .then(r => r.json())
+    .then(result => {
+        alert("✓ Datos enviados a Google Sheets");
+    })
+    .catch(e => {
+        alert("⚠️ Error: " + e);
+        console.log(e);
+    });
+}
 
         // CONFIGURACIÓN - PREGUNTAS CON IMÁGENES
         const preguntas = [
