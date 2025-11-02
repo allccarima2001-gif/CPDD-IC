@@ -16,8 +16,11 @@
         input[type="number"], select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
         input:focus, select:focus { outline: none; border-color: #003366; }
         .radio-group { display: flex; gap: 30px; margin-top: 10px; flex-wrap: wrap; }
+        .radio-option { display: flex; align-items: center; }
+        .radio-option input { margin-right: 8px; }
+        .radio-option label { margin: 0; display: inline; }
         button { padding: 12px 30px; font-size: 14px; border: none; border-radius: 5px; cursor: pointer; background: #003366; color: white; font-weight: bold; transition: all 0.3s; }
-        button:hover { background: #004d99; transform: translateY(-2px); }
+        button:hover { background: #004d99; }
         .btn-anterior { background: #666; }
         .btn-anterior:hover { background: #444; }
         .error { color: red; font-size: 12px; margin-top: 5px; }
@@ -78,8 +81,14 @@
             <div class="form-group">
                 <label>Sexo biológico:</label>
                 <div class="radio-group">
-                    <div><input type="radio" name="sexo" value="M" id="m"><label for="m" style="margin:0;display:inline;">Masculino</label></div>
-                    <div><input type="radio" name="sexo" value="F" id="f"><label for="f" style="margin:0;display:inline;">Femenino</label></div>
+                    <div class="radio-option">
+                        <input type="radio" name="sexo" value="M" id="m">
+                        <label for="m">Masculino</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="sexo" value="F" id="f">
+                        <label for="f">Femenino</label>
+                    </div>
                 </div>
                 <div id="error-sexo" class="error"></div>
             </div>
@@ -96,7 +105,7 @@
                 <div id="error-inst" class="error"></div>
             </div>
             
-            <button onclick="demo()">Siguiente →</button>
+            <button onclick="validarDemo()">Siguiente →</button>
         </div>
 
         <!-- PÁGINAS PREGUNTAS -->
@@ -135,6 +144,10 @@
         let datos = {};
 
         window.onload = function() {
+            crearPreguntas();
+        };
+
+        function crearPreguntas() {
             const c = document.getElementById('preguntas');
             preguntas.forEach(p => {
                 const d = document.createElement('div');
@@ -164,17 +177,19 @@
                 `;
                 c.appendChild(d);
             });
-        };
+        }
 
         function irA(p) {
             document.querySelectorAll('[id^="page-"],[id^="p"]').forEach(e => e.classList.add('hidden'));
-            document.getElementById(p).classList.remove('hidden');
+            if(document.getElementById(p)) {
+                document.getElementById(p).classList.remove('hidden');
+            }
             window.scrollTo(0, 0);
         }
 
-        function demo() {
+        function validarDemo() {
             const edad = document.getElementById('edad').value;
-            const sexo = document.querySelector('input[name=sexo]:checked');
+            const sexo = document.querySelector('input[name="sexo"]:checked');
             const inst = document.getElementById('inst').value;
 
             document.getElementById('error-edad').textContent = '';
@@ -196,10 +211,12 @@
             }
 
             if(ok) {
-                datos.edad = edad;
-                datos.sexo = sexo.value;
-                datos.inst = inst;
-                datos.r = {};
+                datos = {
+                    edad: edad,
+                    sexo: sexo.value,
+                    inst: inst,
+                    r: {}
+                };
                 irA('p1');
             }
         }
@@ -212,11 +229,11 @@
             }
             document.getElementById('err' + n).textContent = '';
             datos.r[n] = r;
-            if(n === 15) fin();
+            if(n === 15) mostrarResultados();
             else irA('p' + (n + 1));
         }
 
-        function fin() {
+        function mostrarResultados() {
             let correctas = 0;
             preguntas.forEach(p => {
                 if(datos.r[p.num] === p.correcto) correctas++;
@@ -248,7 +265,7 @@
                 <h3 style="color:#003366;margin:30px 0 15px;">Detalle de respuestas:</h3>
                 ${tabla}
                 <div style="text-align:center;margin-top:30px;">
-                    <button onclick="enviar()">📤 Enviar datos a Google Sheets</button>
+                    <button onclick="enviarDatos()">📤 Enviar datos a Google Sheets</button>
                 </div>
             `;
 
@@ -256,9 +273,9 @@
             irA('page-res');
         }
 
-        function enviar() {
-            if(!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL.includes('PEGA')) {
-                alert('⚠️ Por favor, configura la URL de Google Apps Script en el código');
+        function enviarDatos() {
+            if(!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbxIaE-VKXXdLpnkKxa2fZoivpAq9jQSuxHFS0_8XohKnHZsHRv5zWqTfBsabo9VL8oh/exec')) {
+                alert('⚠️ Configura la URL de Google Apps Script en el código');
                 return;
             }
 
@@ -268,10 +285,10 @@
             })
             .then(r => r.json())
             .then(result => {
-                alert('✓ Datos enviados a Google Sheets correctamente');
+                alert('✓ Datos enviados correctamente');
             })
             .catch(e => {
-                alert('⚠️ Error al enviar: ' + e.message);
+                alert('⚠️ Error: ' + e.message);
                 console.log(e);
             });
         }
