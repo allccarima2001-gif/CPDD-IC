@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPDD-IC - Cuestionario Dermatología UNMSM</title>
     <style>
@@ -104,7 +104,6 @@
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1eJOHZICBl1IcJDKdpMpgTL0v0X4vFM6iaZShNyTN8dV5eFrnlJTVHwJGl4BV_8rv/exec';
 
         // CONFIGURACIÓN - PREGUNTAS CON IMÁGENES
-        // Después de subir imágenes a GitHub, reemplaza los links abajo
         const preguntas = [
             { num: 1, correcto: "Dermatitis de contacto alérgica", imagen: "Dermatitis de contacto.jpg" },
             { num: 2, correcto: "Dermatitis atópica", imagen: "Dermatitis atópica.jpg" },
@@ -117,7 +116,7 @@
             { num: 9, correcto: "Rosácea", imagen: "Rosácea.jpg" },
             { num: 10, correcto: "Tiña corporis", imagen: "Tiña corporis.jpg" },
             { num: 11, correcto: "Carcinoma basocelular", imagen: "Carcinoma basocelular.jpg" }, 
-            { num: 12, correcto: "Nevo melanocítico común", imagen: "Nevus.jpeg" }
+            { num: 12, correcto: "Nevo melanocítico común", imagen: "Nevus.jpeg" },
             { num: 13, correcto: "Lentigo solar", imagen: "Lentigo solar.jpg" },
             { num: 14, correcto: "Queratosis actínica", imagen: "Queratosis actínica.jpg" },
             { num: 15, correcto: "Molusco contagioso", imagen: "Molusco contagioso.jpg" }
@@ -268,6 +267,34 @@
                 ${tabla}
                 <p style="margin-top: 30px; color: #555;">¡Gracias por completar el cuestionario!</p>
             `;
+        }
+
+        function enviarDatos() {
+            const dataEnvio = {
+                edad: datos.edad,
+                sexo: datos.sexo,
+                institucion: datos.institucion
+            };
+
+            preguntas.forEach((p, idx) => {
+                dataEnvio[idx + 1] = datos.respuestas[idx + 1] || '';
+            });
+
+            dataEnvio.correcciones = datos.correctas;
+            dataEnvio.precision = datos.precision;
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(dataEnvio)
+            })
+            .then(r => r.json())
+            .then(result => {
+                alert('✓ ¡Cuestionario completado!\n\nTus respuestas han sido enviadas.');
+            })
+            .catch(err => {
+                alert('⚠️ Error al enviar los datos.');
+                console.log(err);
+            });
         }
     </script>
 </body>
