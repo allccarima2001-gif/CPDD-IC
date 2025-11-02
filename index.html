@@ -9,30 +9,48 @@
         body { font-family: Arial; background: linear-gradient(135deg, #003366 0%, #004d99 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .container { background: white; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 900px; width: 100%; padding: 40px; }
         h1 { color: #003366; text-align: center; margin-bottom: 20px; }
-        p { color: #666; margin: 15px 0; }
-        .form-group { margin: 20px 0; }
-        label { display: block; color: #003366; font-weight: bold; margin-bottom: 8px; }
-        input, select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
-        input:focus, select:focus { outline: none; border-color: #003366; }
-        .radio-group { display: flex; gap: 30px; margin-top: 10px; flex-wrap: wrap; }
-        button { padding: 12px 30px; background: #003366; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
-        button:hover { background: #004d99; }
-        .error { color: red; font-size: 12px; margin-top: 5px; }
+        h2 { color: #003366; text-align: center; margin-bottom: 20px; }
+        p { color: #666; margin: 15px 0; text-align: center; }
+        .form-group { margin: 25px 0; }
+        label { display: block; color: #003366; font-weight: bold; margin-bottom: 12px; text-align: center; }
+        input[type="number"] { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
+        input[type="number"]:focus { outline: none; border-color: #003366; }
+        
+        /* SELECT PERSONALIZADO */
+        select { 
+            width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; 
+            background: white; color: #333; cursor: pointer;
+        }
+        select:focus { outline: none; border-color: #003366; }
+        select option { padding: 10px; background: white; color: #333; }
+        select option:checked { background: #003366; color: white; }
+
+        /* RADIO BUTTONS CENTRADOS */
+        .radio-group { display: flex; gap: 40px; margin-top: 15px; justify-content: center; flex-wrap: wrap; }
+        .radio-option { display: flex; flex-direction: column; align-items: center; }
+        .radio-option input[type="radio"] { margin-bottom: 8px; cursor: pointer; width: 18px; height: 18px; }
+        .radio-option label { margin: 0; display: block; text-align: center; font-weight: bold; color: #003366; }
+
+        .error { color: red; font-size: 12px; margin-top: 8px; text-align: center; }
         .hidden { display: none; }
-        img { max-width: 100%; height: 400px; object-fit: contain; border-radius: 10px; border: 2px solid #003366; margin: 20px 0; }
+        
+        /* IMAGEN CENTRADA */
+        .imagen-container { display: flex; justify-content: center; margin: 30px 0; }
+        img { max-width: 100%; height: 400px; object-fit: contain; border-radius: 10px; border: 2px solid #003366; }
+        
         .progress-bar { width: 100%; height: 8px; background: #ddd; border-radius: 5px; margin-bottom: 15px; }
         .progress-fill { height: 100%; background: #003366; }
+        
         table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
         table th, table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         table th { background: #003366; color: white; }
-        .buttons { display: flex; gap: 10px; margin-top: 20px; }
+        
+        button { padding: 12px 30px; background: #003366; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        button:hover:not(:disabled) { background: #004d99; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .buttons { display: flex; gap: 10px; margin-top: 25px; }
         .buttons button { flex: 1; }
-
-        /* ESTILOS PARA OPCIONES EN BOTONES */
-        .opciones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 15px 0; }
-        .opcion-btn { padding: 12px; background: #f0f0f0; color: #333; border: 2px solid #ddd; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: bold; transition: all 0.3s; }
-        .opcion-btn:hover { background: #e0e0e0; }
-        .opcion-btn.seleccionado { background: #003366; color: white; border-color: #003366; }
 
         .final-mensaje { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 10px; padding: 30px; text-align: center; margin: 20px 0; }
         .final-mensaje h2 { color: #2e7d32; font-size: 24px; margin-bottom: 10px; }
@@ -44,15 +62,15 @@
         <!-- PÁGINA 1: INICIO -->
         <div id="inicio">
             <h1>📋 Cuestionario CPDD-IC</h1>
-            <p style="text-align: center; margin: 30px 0;">Precisión Diagnóstica en Dermatología</p>
-            <p style="text-align: center; font-size: 14px;">Universidad Nacional Mayor de San Marcos - 2025</p>
+            <p style="font-size: 16px; margin: 30px 0;">Precisión Diagnóstica en Dermatología</p>
+            <p style="font-size: 14px;">Universidad Nacional Mayor de San Marcos - 2025</p>
             <div style="background: #f0f4f8; padding: 20px; border-radius: 10px; margin: 30px 0;">
-                <p><strong>Instrucciones:</strong></p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
+                <p style="text-align: left;"><strong>Instrucciones:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px; text-align: left;">
                     <li>15 preguntas con imágenes clínicas</li>
                     <li>Duración: 25-30 minutos</li>
                     <li>Responde de forma individual</li>
-                    <li>Selecciona el diagnóstico haciendo click en los botones</li>
+                    <li>Selecciona el diagnóstico más probable de la lista</li>
                 </ul>
             </div>
             <button onclick="abrirDemo()" style="width: 100%; padding: 15px; font-size: 16px;">Comenzar →</button>
@@ -61,19 +79,28 @@
         <!-- PÁGINA 2: DEMOGRAFÍA -->
         <div id="demo" class="hidden">
             <h1>Datos Demográficos</h1>
+            
             <div class="form-group">
-                <label>Edad:</label>
+                <label>Edad (años):</label>
                 <input type="number" id="edad" min="18" max="60">
                 <div class="error" id="err-edad"></div>
             </div>
+            
             <div class="form-group">
-                <label>Sexo:</label>
+                <label>Sexo biológico:</label>
                 <div class="radio-group">
-                    <div><input type="radio" name="sexo" value="M" id="m"><label for="m" style="display:inline;margin:0;">Masculino</label></div>
-                    <div><input type="radio" name="sexo" value="F" id="f"><label for="f" style="display:inline;margin:0;">Femenino</label></div>
+                    <div class="radio-option">
+                        <input type="radio" name="sexo" value="M" id="m">
+                        <label for="m">Masculino</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="sexo" value="F" id="f">
+                        <label for="f">Femenino</label>
+                    </div>
                 </div>
                 <div class="error" id="err-sexo"></div>
             </div>
+            
             <div class="form-group">
                 <label>Institución:</label>
                 <select id="inst">
@@ -85,7 +112,8 @@
                 </select>
                 <div class="error" id="err-inst"></div>
             </div>
-            <button onclick="validarDemo()" style="width: 100%; padding: 15px;">Siguiente →</button>
+            
+            <button onclick="validarDemo()" style="width: 100%; padding: 15px; margin-top: 20px;">Siguiente →</button>
         </div>
 
         <!-- PÁGINA 3: PREGUNTAS -->
@@ -180,13 +208,16 @@
                 sec.style.display = 'none';
                 sec.innerHTML = `
                     <div class="progress-bar"><div class="progress-fill" style="width:${p.num*100/15}%"></div></div>
-                    <h2>Pregunta ${p.num}/15</h2>
-                    <img src="${p.img}" alt="P${p.num}">
+                    <h2>Pregunta ${p.num} de 15</h2>
+                    <div class="imagen-container">
+                        <img src="${p.img}" alt="P${p.num}">
+                    </div>
                     <div class="form-group">
                         <label>Selecciona el diagnóstico:</label>
-                        <div class="opciones-grid" id="opciones${p.num}">
-                            ${OPCIONES.map(o => `<button type="button" class="opcion-btn" onclick="seleccionar(${p.num}, '${o}')">${o}</button>`).join('')}
-                        </div>
+                        <select id="r${p.num}" onchange="datos.r[${p.num}] = this.value">
+                            <option value="">-- Selecciona una opción --</option>
+                            ${OPCIONES.map(o => `<option value="${o}">${o}</option>`).join('')}
+                        </select>
                     </div>
                     <div class="buttons">
                         ${p.num > 1 ? `<button onclick="mostrarP(${p.num-1})">← Anterior</button>` : '<div></div>'}
@@ -199,28 +230,13 @@
             mostrarP(1);
         }
 
-        function seleccionar(numP, opcion) {
-            // Remover selección anterior
-            document.querySelectorAll('#opciones' + numP + ' .opcion-btn').forEach(btn => {
-                btn.classList.remove('seleccionado');
-            });
-            
-            // Seleccionar la nueva
-            event.target.classList.add('seleccionado');
-            datos.r[numP] = opcion;
-        }
-
         function mostrarP(n) {
             document.querySelectorAll('#preguntas > div').forEach(d => d.style.display = 'none');
             document.getElementById('p' + n).style.display = 'block';
             
-            // Restaurar botón seleccionado si ya hay respuesta
+            // Restaurar respuesta anterior si existe
             if(datos.r[n]) {
-                document.querySelectorAll('#opciones' + n + ' .opcion-btn').forEach(btn => {
-                    if(btn.textContent === datos.r[n]) {
-                        btn.classList.add('seleccionado');
-                    }
-                });
+                document.getElementById('r' + n).value = datos.r[n];
             }
             
             window.scrollTo(0, 0);
@@ -242,10 +258,10 @@
             });
             datos.precision = Math.round(correctas * 100 / 15);
 
-            let tabla = '<table><tr><th>P</th><th>Tu respuesta</th><th>Correcta</th><th>R</th></tr>';
+            let tabla = '<table><tr><th>P</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr>';
             PREGUNTAS.forEach(p => {
                 const ok = datos.r[p.num] === p.correcto;
-                tabla += `<tr><td>P${p.num}</td><td>${datos.r[p.num]}</td><td>${p.correcto}</td><td style="color:${ok?'green':'red'}">${ok?'✓':'✗'}</td></tr>`;
+                tabla += `<tr><td>P${p.num}</td><td>${datos.r[p.num]}</td><td>${p.correcto}</td><td style="color:${ok?'green':'red'};font-weight:bold;text-align:center">${ok?'✓':'✗'}</td></tr>`;
             });
             tabla += '</table>';
 
@@ -253,12 +269,12 @@
             const div = document.getElementById('resultados');
             div.classList.remove('hidden');
             div.innerHTML = `
-                <div style="background: #f0f4f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                    <p><strong>Respuestas correctas:</strong> ${correctas}/15</p>
-                    <p><strong>Respuestas incorrectas:</strong> ${15-correctas}/15</p>
-                    <p style="font-size: 24px; color: #003366;"><strong>Precisión: ${datos.precision}%</strong></p>
+                <div style="background: #f0f4f8; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                    <p style="text-align: center;"><strong>Respuestas correctas:</strong> ${correctas}/15</p>
+                    <p style="text-align: center;"><strong>Respuestas incorrectas:</strong> ${15-correctas}/15</p>
+                    <p style="font-size: 28px; color: #003366; text-align: center;"><strong>Precisión: ${datos.precision}%</strong></p>
                 </div>
-                <h3 style="color: #003366; margin-bottom: 10px;">Detalle de respuestas:</h3>
+                <h3 style="color: #003366; margin: 30px 0 15px; text-align: center;">Detalle de respuestas:</h3>
                 ${tabla}
                 <button id="btnEnviar" onclick="enviar()" style="margin-top: 20px; width: 100%; padding: 15px; font-size: 16px;">📤 Enviar a Google Sheets</button>
                 <div id="mensajeFinal" class="hidden"></div>
@@ -270,8 +286,6 @@
             if(enviado) return;
             
             document.getElementById('btnEnviar').disabled = true;
-            document.getElementById('btnEnviar').style.opacity = '0.5';
-            document.getElementById('btnEnviar').style.cursor = 'not-allowed';
 
             fetch(URL_SCRIPT, {
                 method: 'POST',
@@ -283,9 +297,9 @@
                 document.getElementById('btnEnviar').style.display = 'none';
                 document.getElementById('mensajeFinal').innerHTML = `
                     <div class="final-mensaje">
-                        <h2>✓ ¡Gracias!</h2>
+                        <h2>✓ ¡Gracias por participar!</h2>
                         <p>Tu cuestionario ha sido enviado exitosamente.</p>
-                        <p style="font-size: 14px; margin-top: 10px;">Tus respuestas han sido registradas en nuestra base de datos.</p>
+                        <p style="font-size: 14px; margin-top: 10px;">Tus respuestas han sido registradas correctamente.</p>
                     </div>
                 `;
                 document.getElementById('mensajeFinal').classList.remove('hidden');
@@ -293,8 +307,6 @@
             .catch(e => {
                 alert('Error al enviar: ' + e.message);
                 document.getElementById('btnEnviar').disabled = false;
-                document.getElementById('btnEnviar').style.opacity = '1';
-                document.getElementById('btnEnviar').style.cursor = 'pointer';
             });
         }
     </script>
