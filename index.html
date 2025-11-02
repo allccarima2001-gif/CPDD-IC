@@ -3,96 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPDD-IC - Cuestionario Dermatología UNMSM</title>
+    <title>CPDD-IC</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #003366 0%, #004d99 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        body { font-family: Arial; background: linear-gradient(135deg, #003366 0%, #004d99 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .container { background: white; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 900px; width: 100%; padding: 40px; }
-        h1 { color: #003366; margin-bottom: 15px; font-size: 28px; text-align: center; }
-        h2 { color: #003366; margin: 20px 0 15px 0; font-size: 20px; }
-        p { color: #666; margin-bottom: 15px; line-height: 1.6; }
-        .form-group { margin-bottom: 20px; }
+        h1 { color: #003366; text-align: center; margin-bottom: 20px; }
+        p { color: #666; margin: 15px 0; }
+        .form-group { margin: 20px 0; }
         label { display: block; color: #003366; font-weight: bold; margin-bottom: 8px; }
-        input[type="number"], select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
+        input, select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
         input:focus, select:focus { outline: none; border-color: #003366; }
-        .radio-group { display: flex; gap: 30px; margin-top: 10px; flex-wrap: wrap; }
-        .radio-option { display: flex; align-items: center; }
-        .radio-option input { margin-right: 8px; }
-        .radio-option label { margin: 0; display: inline; }
-        button { padding: 12px 30px; font-size: 14px; border: none; border-radius: 5px; cursor: pointer; background: #003366; color: white; font-weight: bold; transition: all 0.3s; }
+        .radio-group { display: flex; gap: 30px; margin-top: 10px; }
+        button { padding: 12px 30px; background: #003366; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
         button:hover { background: #004d99; }
-        .btn-anterior { background: #666; }
-        .btn-anterior:hover { background: #444; }
         .error { color: red; font-size: 12px; margin-top: 5px; }
-        .hidden { display: none !important; }
-        .image-container { text-align: center; margin: 30px 0; }
-        .image-container img { max-width: 100%; height: 400px; object-fit: contain; border-radius: 10px; border: 3px solid #003366; }
-        .progress-bar { width: 100%; height: 10px; background: #e0e0e0; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #003366, #004d99); }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+        .hidden { display: none; }
+        img { max-width: 100%; height: 400px; object-fit: contain; border-radius: 10px; border: 2px solid #003366; margin: 20px 0; }
+        .progress-bar { width: 100%; height: 8px; background: #ddd; border-radius: 5px; margin-bottom: 15px; }
+        .progress-fill { height: 100%; background: #003366; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
         table th, table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         table th { background: #003366; color: white; }
-        table tr:nth-child(even) { background: #f9f9f9; }
         .buttons { display: flex; gap: 10px; margin-top: 20px; }
         .buttons button { flex: 1; }
-        .intro-box { background: #f0f4f8; padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #003366; }
-        .intro-box h2 { margin-top: 0; }
-        .intro-box ul { margin-left: 20px; color: #333; line-height: 1.8; }
-        .result-box { background: #f0f4f8; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #003366; }
-        .result-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ddd; }
-        .result-item:last-child { border-bottom: none; }
-        .precision-display { font-size: 32px; font-weight: bold; color: #003366; text-align: center; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- PÁGINA INICIO -->
-        <div id="page-inicio">
+        <!-- PÁGINA 1: INICIO -->
+        <div id="inicio">
             <h1>📋 Cuestionario CPDD-IC</h1>
-            <p style="text-align:center;font-size:16px;margin-bottom:30px;">Precisión Diagnóstica en Dermatología mediante Imágenes Clínicas</p>
-            <p style="text-align:center;font-size:14px;color:#555;">Universidad Nacional Mayor de San Marcos - 2025</p>
-            
-            <div class="intro-box">
-                <h2>ℹ️ Instrucciones</h2>
-                <ul>
-                    <li>Este cuestionario evalúa tu capacidad diagnóstica</li>
-                    <li>Consta de 15 preguntas con imágenes clínicas</li>
-                    <li>Duración aproximada: 25-30 minutos</li>
-                    <li>Responde de forma individual e independiente</li>
-                    <li>Tus respuestas son confidenciales</li>
+            <p style="text-align: center; margin: 30px 0;">Precisión Diagnóstica en Dermatología</p>
+            <p style="text-align: center; font-size: 14px;">Universidad Nacional Mayor de San Marcos - 2025</p>
+            <div style="background: #f0f4f8; padding: 20px; border-radius: 10px; margin: 30px 0;">
+                <p><strong>Instrucciones:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>15 preguntas con imágenes clínicas</li>
+                    <li>Duración: 25-30 minutos</li>
+                    <li>Responde de forma individual</li>
                 </ul>
             </div>
-            
-            <div style="text-align:center;">
-                <button onclick="mostrarDemograficos()">Comenzar →</button>
-            </div>
+            <button onclick="abrirDemo()">Comenzar →</button>
         </div>
 
-        <!-- PÁGINA DATOS DEMOGRÁFICOS -->
-        <div id="page-demo" class="hidden">
-            <h2>📝 Datos Demográficos</h2>
-            
+        <!-- PÁGINA 2: DEMOGRAFÍA -->
+        <div id="demo" class="hidden">
+            <h1>Datos Demográficos</h1>
             <div class="form-group">
-                <label>Edad (años):</label>
-                <input type="number" id="edad" min="18" max="60" placeholder="Ej: 24">
-                <div id="error-edad" class="error"></div>
+                <label>Edad:</label>
+                <input type="number" id="edad" min="18" max="60">
+                <div class="error" id="err-edad"></div>
             </div>
-            
             <div class="form-group">
-                <label>Sexo biológico:</label>
+                <label>Sexo:</label>
                 <div class="radio-group">
-                    <div class="radio-option">
-                        <input type="radio" name="sexo" value="M" id="m">
-                        <label for="m">Masculino</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" name="sexo" value="F" id="f">
-                        <label for="f">Femenino</label>
-                    </div>
+                    <div><input type="radio" name="sexo" value="M" id="m"><label for="m" style="display:inline;margin:0;">Masculino</label></div>
+                    <div><input type="radio" name="sexo" value="F" id="f"><label for="f" style="display:inline;margin:0;">Femenino</label></div>
                 </div>
-                <div id="error-sexo" class="error"></div>
+                <div class="error" id="err-sexo"></div>
             </div>
-            
             <div class="form-group">
                 <label>Institución:</label>
                 <select id="inst">
@@ -100,201 +70,180 @@
                     <option value="MINSA">MINSA</option>
                     <option value="EsSalud">EsSalud</option>
                     <option value="FFAA">Fuerzas Armadas</option>
-                    <option value="Privadas">Clínicas privadas</option>
+                    <option value="Privadas">Clínicas Privadas</option>
                 </select>
-                <div id="error-inst" class="error"></div>
+                <div class="error" id="err-inst"></div>
             </div>
-            
-            <button onclick="continuarDesdeDemo()">Siguiente →</button>
+            <button onclick="validarDemo()">Siguiente →</button>
         </div>
 
-        <!-- PÁGINAS PREGUNTAS -->
-        <div id="preguntas"></div>
+        <!-- PÁGINA 3: PREGUNTAS -->
+        <div id="preguntas" class="hidden"></div>
 
-        <!-- PÁGINA RESULTADOS -->
-        <div id="page-res" class="hidden">
-            <h2>📊 Resultados Finales</h2>
-            <div id="res"></div>
+        <!-- PÁGINA 4: RESULTADOS -->
+        <div id="resultados" class="hidden">
+            <h1>📊 Resultados</h1>
+            <div id="contenido-resultados"></div>
         </div>
     </div>
 
     <script>
-        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIaE-VKXXdLpnkKxa2fZoivpAq9jQSuxHFS0_8XohKnHZsHRv5zWqTfBsabo9VL8oh/exec";
-
-        const preguntas = [
-            { num: 1, correcto: "Dermatitis de contacto alérgica", imagen: "Dermatitis-de-contacto.jpg" },
-            { num: 2, correcto: "Dermatitis atópica", imagen: "Dermatitis-atopica.jpg" },
-            { num: 3, correcto: "Queratosis seborreica", imagen: "Queratosis-seborreica.jpg" },
-            { num: 4, correcto: "Impétigo no bulloso", imagen: "Impetigo.jpg" },
-            { num: 5, correcto: "Psoriasis", imagen: "Psoriasis.jpg" },
-            { num: 6, correcto: "Melanoma", imagen: "Melanoma.jpg" },
-            { num: 7, correcto: "Acné vulgar", imagen: "Acne.jpg" },
-            { num: 8, correcto: "Verruga vulgar", imagen: "Verruga-vulgar.jpg" },
-            { num: 9, correcto: "Rosácea", imagen: "Rosacea.jpg" },
-            { num: 10, correcto: "Tiña corporis", imagen: "Tina-corporis.jpg" },
-            { num: 11, correcto: "Carcinoma basocelular", imagen: "Carcinoma-basocelular.jpg" },
-            { num: 12, correcto: "Nevo melanocítico común", imagen: "Nevus.jpg" },
-            { num: 13, correcto: "Lentigo solar", imagen: "Lentigo-solar.jpg" },
-            { num: 14, correcto: "Queratosis actínica", imagen: "Queratosis-actinica.jpg" },
-            { num: 15, correcto: "Molusco contagioso", imagen: "Molusco-contagioso.jpg" }
+        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxIaE-VKXXdLpnkKxa2fZoivpAq9jQSuxHFS0_8XohKnHZsHRv5zWqTfBsabo9VL8oh/exec";
+        
+        const PREGUNTAS = [
+            {num: 1, correcto: "Dermatitis de contacto alérgica", img: "Dermatitis-de-contacto.jpg"},
+            {num: 2, correcto: "Dermatitis atópica", img: "Dermatitis-atopica.jpg"},
+            {num: 3, correcto: "Queratosis seborreica", img: "Queratosis-seborreica.jpg"},
+            {num: 4, correcto: "Impétigo no bulloso", img: "Impetigo.jpg"},
+            {num: 5, correcto: "Psoriasis", img: "Psoriasis.jpg"},
+            {num: 6, correcto: "Melanoma", img: "Melanoma.jpg"},
+            {num: 7, correcto: "Acné vulgar", img: "Acne.jpg"},
+            {num: 8, correcto: "Verruga vulgar", img: "Verruga-vulgar.jpg"},
+            {num: 9, correcto: "Rosácea", img: "Rosacea.jpg"},
+            {num: 10, correcto: "Tiña corporis", img: "Tina-corporis.jpg"},
+            {num: 11, correcto: "Carcinoma basocelular", img: "Carcinoma-basocelular.jpg"},
+            {num: 12, correcto: "Nevo melanocítico común", img: "Nevus.jpg"},
+            {num: 13, correcto: "Lentigo solar", img: "Lentigo-solar.jpg"},
+            {num: 14, correcto: "Queratosis actínica", img: "Queratosis-actinica.jpg"},
+            {num: 15, correcto: "Molusco contagioso", img: "Molusco-contagioso.jpg"}
         ];
 
-        const opciones = ["Acné vulgar","Carcinoma basocelular","Dermatitis atópica","Dermatitis de contacto alérgica","Impétigo no bulloso","Lentigo solar","Melanoma","Molusco contagioso","Nevo melanocítico común","Psoriasis","Queratosis actínica","Queratosis seborreica","Rosácea","Tiña corporis","Verruga vulgar"];
+        const OPCIONES = ["Acné vulgar","Carcinoma basocelular","Dermatitis atópica","Dermatitis de contacto alérgica","Impétigo no bulloso","Lentigo solar","Melanoma","Molusco contagioso","Nevo melanocítico común","Psoriasis","Queratosis actínica","Queratosis seborreica","Rosácea","Tiña corporis","Verruga vulgar"];
 
         let datos = {};
+        let paginaActual = 0;
 
-        window.onload = function() {
-            crearPreguntas();
-        };
-
-        function mostrarDemograficos() {
-            document.getElementById('page-inicio').classList.add('hidden');
-            document.getElementById('page-demo').classList.remove('hidden');
+        function limpiar() {
+            document.getElementById('inicio').classList.add('hidden');
+            document.getElementById('demo').classList.add('hidden');
+            document.getElementById('preguntas').classList.add('hidden');
+            document.getElementById('resultados').classList.add('hidden');
         }
 
-        function crearPreguntas() {
-            const c = document.getElementById('preguntas');
-            preguntas.forEach(p => {
-                const d = document.createElement('div');
-                d.id = 'p' + p.num;
-                d.className = 'hidden';
-                d.innerHTML = `
-                    <div class="progress-bar"><div class="progress-fill" style="width:${p.num*100/15}%"></div></div>
-                    <h2>Pregunta ${p.num} de 15</h2>
-                    <p style="text-align:center;color:#666;margin-bottom:15px;">Observe la imagen y seleccione el diagnóstico más probable:</p>
-                    <div class="image-container">
-                        <img src="${p.imagen}" alt="Pregunta ${p.num}">
-                    </div>
-                    <div class="form-group">
-                        <label>Diagnóstico:</label>
-                        <select id="r${p.num}">
-                            <option value="">-- Selecciona una opción --</option>
-                            ${opciones.map(o => `<option value="${o}">${o}</option>`).join('')}
-                        </select>
-                        <div id="err${p.num}" class="error"></div>
-                    </div>
-                    <div class="buttons">
-                        ${p.num > 1 ? `<button class="btn-anterior" onclick="anterior(${p.num})">← Anterior</button>` : '<div></div>'}
-                        <button onclick="siguiente(${p.num})">
-                            ${p.num === 15 ? '✓ Finalizar' : 'Siguiente →'}
-                        </button>
-                    </div>
-                `;
-                c.appendChild(d);
-            });
+        function abrirDemo() {
+            limpiar();
+            document.getElementById('demo').classList.remove('hidden');
         }
 
-        function continuarDesdeDemo() {
+        function validarDemo() {
             const edad = document.getElementById('edad').value;
             const sexo = document.querySelector('input[name="sexo"]:checked');
             const inst = document.getElementById('inst').value;
 
-            document.getElementById('error-edad').textContent = '';
-            document.getElementById('error-sexo').textContent = '';
-            document.getElementById('error-inst').textContent = '';
+            document.getElementById('err-edad').textContent = '';
+            document.getElementById('err-sexo').textContent = '';
+            document.getElementById('err-inst').textContent = '';
 
-            let ok = true;
-            if(!edad || edad < 18 || edad > 60) { 
-                document.getElementById('error-edad').textContent = '⚠️ Edad debe estar entre 18-60';
-                ok = false;
+            if(!edad || edad < 18 || edad > 60) {
+                document.getElementById('err-edad').textContent = 'Edad inválida';
+                return;
             }
-            if(!sexo) { 
-                document.getElementById('error-sexo').textContent = '⚠️ Selecciona tu sexo';
-                ok = false;
+            if(!sexo) {
+                document.getElementById('err-sexo').textContent = 'Selecciona sexo';
+                return;
             }
-            if(!inst) { 
-                document.getElementById('error-inst').textContent = '⚠️ Selecciona institución';
-                ok = false;
+            if(!inst) {
+                document.getElementById('err-inst').textContent = 'Selecciona institución';
+                return;
             }
 
-            if(ok) {
-                datos = {
-                    edad: edad,
-                    sexo: sexo.value,
-                    inst: inst,
-                    r: {}
-                };
-                mostrarPregunta(1);
-            }
+            datos = {
+                edad: edad,
+                sexo: sexo.value,
+                inst: inst,
+                r: {}
+            };
+
+            mostrarPreguntas();
         }
 
-        function mostrarPregunta(n) {
-            document.querySelectorAll('[id^="page-"],[id^="p"]').forEach(e => e.classList.add('hidden'));
-            document.getElementById('p' + n).classList.remove('hidden');
+        function mostrarPreguntas() {
+            limpiar();
+            const div = document.getElementById('preguntas');
+            div.innerHTML = '';
+            div.classList.remove('hidden');
+
+            PREGUNTAS.forEach(p => {
+                const sec = document.createElement('div');
+                sec.id = 'p' + p.num;
+                sec.style.display = 'none';
+                sec.innerHTML = `
+                    <div class="progress-bar"><div class="progress-fill" style="width:${p.num*100/15}%"></div></div>
+                    <h2>Pregunta ${p.num}/15</h2>
+                    <img src="${p.img}" alt="P${p.num}">
+                    <div class="form-group">
+                        <label>Diagnóstico:</label>
+                        <select id="r${p.num}">
+                            <option value="">--</option>
+                            ${OPCIONES.map(o => `<option value="${o}">${o}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="buttons">
+                        ${p.num > 1 ? `<button onclick="mostrarP(${p.num-1})">← Anterior</button>` : '<div></div>'}
+                        <button onclick="responder(${p.num})">${p.num === 15 ? 'Finalizar' : 'Siguiente →'}</button>
+                    </div>
+                `;
+                div.appendChild(sec);
+            });
+
+            mostrarP(1);
+        }
+
+        function mostrarP(n) {
+            document.querySelectorAll('#preguntas > div').forEach(d => d.style.display = 'none');
+            document.getElementById('p' + n).style.display = 'block';
             window.scrollTo(0, 0);
         }
 
-        function anterior(n) {
-            if(n > 1) mostrarPregunta(n - 1);
-        }
-
-        function siguiente(n) {
-            const r = document.getElementById('r' + n).value;
-            if(!r) { 
-                document.getElementById('err' + n).textContent = '⚠️ Debes seleccionar un diagnóstico';
+        function responder(n) {
+            const resp = document.getElementById('r' + n).value;
+            if(!resp) {
+                alert('Selecciona un diagnóstico');
                 return;
             }
-            document.getElementById('err' + n).textContent = '';
-            datos.r[n] = r;
-            
-            if(n === 15) mostrarResultados();
-            else mostrarPregunta(n + 1);
+            datos.r[n] = resp;
+            if(n === 15) finalizarCuestionario();
+            else mostrarP(n + 1);
         }
 
-        function mostrarResultados() {
+        function finalizarCuestionario() {
             let correctas = 0;
-            preguntas.forEach(p => {
+            PREGUNTAS.forEach(p => {
                 if(datos.r[p.num] === p.correcto) correctas++;
             });
-            datos.precision = Math.round(correctas*100/15);
+            datos.precision = Math.round(correctas * 100 / 15);
 
-            let tabla = '<table><tr><th>P</th><th>Tu respuesta</th><th>Respuesta correcta</th><th>Resultado</th></tr>';
-            preguntas.forEach(p => {
+            let tabla = '<table><tr><th>P</th><th>Tu respuesta</th><th>Correcta</th><th>R</th></tr>';
+            PREGUNTAS.forEach(p => {
                 const ok = datos.r[p.num] === p.correcto;
-                tabla += `<tr><td>P${p.num}</td><td>${datos.r[p.num]}</td><td>${p.correcto}</td><td style="color:${ok?'green':'red'};font-weight:bold">${ok?'✓':'✗'}</td></tr>`;
+                tabla += `<tr><td>P${p.num}</td><td>${datos.r[p.num]}</td><td>${p.correcto}</td><td style="color:${ok?'green':'red'}">${ok?'✓':'✗'}</td></tr>`;
             });
             tabla += '</table>';
 
-            let html = `
-                <div class="result-box">
-                    <div class="result-item">
-                        <strong>Respuestas correctas:</strong>
-                        <span>${correctas} / 15</span>
-                    </div>
-                    <div class="result-item">
-                        <strong>Respuestas incorrectas:</strong>
-                        <span>${15 - correctas} / 15</span>
-                    </div>
-                    <div style="text-align:center;margin-top:20px;padding-top:20px;border-top:2px solid #003366;">
-                        <p style="color:#666;margin-bottom:5px;">PRECISIÓN GLOBAL</p>
-                        <p class="precision-display">${datos.precision}%</p>
-                    </div>
+            limpiar();
+            const div = document.getElementById('resultados');
+            div.classList.remove('hidden');
+            div.innerHTML = `
+                <h1>Resultados</h1>
+                <div style="background: #f0f4f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <p><strong>Correctas:</strong> ${correctas}/15</p>
+                    <p><strong>Incorrectas:</strong> ${15-correctas}/15</p>
+                    <p style="font-size: 24px; color: #003366;"><strong>Precisión: ${datos.precision}%</strong></p>
                 </div>
-                <h3 style="color:#003366;margin:30px 0 15px;">Detalle de respuestas:</h3>
                 ${tabla}
-                <div style="text-align:center;margin-top:30px;">
-                    <button onclick="enviarDatos()">📤 Enviar datos a Google Sheets</button>
-                </div>
+                <button onclick="enviar()" style="margin-top: 20px; width: 100%; padding: 15px;">📤 Enviar a Google Sheets</button>
             `;
-
-            document.getElementById('res').innerHTML = html;
-            document.querySelectorAll('[id^="page-"],[id^="p"]').forEach(e => e.classList.add('hidden'));
-            document.getElementById('page-res').classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
-        function enviarDatos() {
-            fetch(GOOGLE_APPS_SCRIPT_URL, {
-                method: "POST",
+        function enviar() {
+            fetch(URL_SCRIPT, {
+                method: 'POST',
                 body: JSON.stringify(datos)
             })
             .then(r => r.json())
-            .then(result => {
-                alert('✓ Datos enviados correctamente a Google Sheets');
-            })
-            .catch(e => {
-                alert('⚠️ Error: ' + e.message);
-            });
+            .then(res => alert('✓ Datos enviados'))
+            .catch(e => alert('Error: ' + e.message));
         }
     </script>
 </body>
