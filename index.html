@@ -9,11 +9,11 @@
         .container { background: white; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 950px; width: 100%; padding: 40px;}
         h1, h2 { color: #003366; text-align: center; margin-bottom: 18px;}
         p { color: #444; margin: 15px 0; text-align: center;}
-        label { color: #003366; font-weight: bold; margin-bottom: 12px; text-align: center; }
+        label { color: #003366; font-weight: bold; margin-bottom: 12px; text-align: center;}
         .form-group { margin: 25px 0;}
-        input[type="number"], select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
-        input[type="number"]:focus, select:focus { outline: none; border-color: #003366; }
-        .radio-group { display: flex; gap: 40px; justify-content: center; margin-top: 15px; }
+        input[type="number"], select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px;}
+        input[type="number"]:focus, select:focus { outline: none; border-color: #003366;}
+        .radio-group { display: flex; gap: 40px; justify-content: center; margin-top: 15px;}
         .radio-option { display: flex; flex-direction: column; align-items: center;}
         .radio-option input {margin-bottom:8px;}
         .error { color: red; font-size: 12px; margin-top: 8px; text-align: center;}
@@ -26,27 +26,38 @@
         table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 13px;}
         table th, table td { border: 1px solid #ddd; padding: 9px; text-align: center;}
         table th { background: #003366; color: white;}
-        .buttons { display: flex; gap: 10px; margin-top: 25px; }
-        .buttons button { flex: 1; }
+        .buttons { display: flex; gap: 10px; margin-top: 25px;}
+        .buttons button { flex: 1;}
         button { padding: 12px 30px; background: #003366; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;}
         button:hover:not(:disabled) { background: #004d99;}
-        .consent-box {background: #f0f4f8; padding: 25px 35px; border-radius: 10px; border-left: 6px solid #003366; margin:34px 0;}
+        button:disabled { opacity: 0.5; cursor: not-allowed;}
+        .consent-box { background: #f0f4f8; padding: 25px 35px; border-radius: 10px; border-left: 6px solid #003366; margin:34px 0;}
         .checkbox-center { text-align: center; margin:20px 0;}
         .checkbox-center input {margin-right: 8px;}
         .final-mensaje { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 10px; padding: 26px; text-align: center; margin: 16px 0;}
         .final-mensaje h2 {color: #2e7d32; font-size: 22px; margin-bottom: 7px;}
-        .final-mensaje p {color: #558b2f; }
+        .final-mensaje p {color: #558b2f;}
+        .btn-mayor {padding:18px;font-size:18px;}
     </style>
 </head>
 <body>
 <div class="container">
 
+    <!-- CARÁTULA -->
+    <div id="caratula">
+        <h1>Evaluación de la precisión diagnóstica en dermatología clínica mediante imágenes</h1>
+        <h2>Encuesta web</h2>
+        <p><b>Autor:</b> Allccarima Ramos, Walter</p>
+        <p>Universidad Nacional Mayor de San Marcos — 2025</p>
+        <button class="btn-mayor" style="width:100%;margin-top:25px;" onclick="aConsent()">Comenzar →</button>
+    </div>
+
     <!-- CONSENTIMIENTO INFORMADO -->
-    <div id="consentimiento">
+    <div id="consentimiento" class="hidden">
         <h1>Consentimiento informado - Encuesta</h1>
         <div class="consent-box">
             <p><strong>Nombre del estudio:</strong> Evaluación de la precisión diagnóstica en dermatología clínica mediante imágenes.</p>
-            <p><strong>Responsable:</strong> (coloque su nombre/línea de contacto y asesor institucional)</p>
+            <p><strong>Responsable:</strong> Allccarima Ramos, Walter. Universidad Nacional Mayor de San Marcos.</p>
             <p>
                 <strong>Objetivo:</strong> Evaluar la capacidad diagnóstica en patologías dermatológicas a través de imágenes clínicas, en internos de medicina de la UNMSM en 2025.
             </p>
@@ -125,7 +136,7 @@ const PREGUNTAS = [
     {num: 9, correcto: "Rosácea", img: "Rosácea.jpg"},
     {num: 10, correcto: "Tiña corporis", img: "Tiña corporis.jpg"},
     {num: 11, correcto: "Carcinoma basocelular", img: "Carcinoma basocelular.jpg"},
-    {num: 12, correcto: "Nevo melanocítico común", img: "Nevus.jpeg"},
+    {num: 12, correcto: "Nevo melanocítico común", img: "Nevus.jpg"},
     {num: 13, correcto: "Lentigo solar", img: "Lentigo solar.jpg"},
     {num: 14, correcto: "Queratosis actínica", img: "Queratosis actínica.jpg"},
     {num: 15, correcto: "Molusco contagioso", img: "Molusco contagioso.jpg"}
@@ -134,9 +145,12 @@ const OPCIONES = ["Acné vulgar","Carcinoma basocelular","Dermatitis atópica","
 let datos = {}, enviado = false;
 
 function limpiar() {
-    ["consentimiento","inicio","demo","preguntas","resultados"].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});
+    ["caratula","consentimiento","inicio","demo","preguntas","resultados"].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});
 }
-
+function aConsent() {
+    limpiar();
+    document.getElementById('consentimiento').classList.remove('hidden');
+}
 function seguirADemografia() {
     document.getElementById("error-cons").textContent = "";
     if(!document.getElementById("aceptoConsentimiento").checked){
@@ -146,7 +160,6 @@ function seguirADemografia() {
     limpiar();
     document.getElementById('demo').classList.remove('hidden');
 }
-
 function validarDemo() {
     const edad = document.getElementById('edad').value;
     const sexo = document.querySelector('input[name="sexo"]:checked');
@@ -169,7 +182,6 @@ function validarDemo() {
     datos = { edad: edad, sexo: sexo.value, inst: inst, r: {} };
     mostrarPreguntas();
 }
-
 function mostrarPreguntas() {
     limpiar();
     const div = document.getElementById('preguntas');
@@ -199,27 +211,23 @@ function mostrarPreguntas() {
     });
     mostrarP(1);
 }
-
 function mostrarP(n) {
     document.querySelectorAll('#preguntas > div').forEach(d => d.style.display = 'none');
     document.getElementById('p' + n).style.display = 'block';
     if(datos.r[n]) document.getElementById('r' + n).value = datos.r[n];
     window.scrollTo(0,0);
 }
-
 function responder(n) {
     if(!datos.r[n]){alert('Selecciona un diagnóstico');return;}
     if(n === 15) finalizarCuestionario();
     else mostrarP(n + 1);
 }
-
 function finalizarCuestionario() {
     let correctas = 0;
     PREGUNTAS.forEach(p => { if(datos.r[p.num] === p.correcto) correctas++; });
     datos.precision = Math.round(correctas * 100 / 15);
     enviar(() => mostrarResultados(correctas));
 }
-
 function mostrarResultados(correctas) {
     let tabla = `<table><tr>
         <th>N°</th>
@@ -258,13 +266,17 @@ function mostrarResultados(correctas) {
     `;
     window.scrollTo(0,0);
 }
-
 function buscarImagen(nombrePatologia) {
-    // Devuelve el nombre de archivo de imagen si coincide exactamente con la patología catalogada
     let p = PREGUNTAS.find(q => q.correcto === nombrePatologia);
     return p ? p.img : "";
 }
-
 function enviar(callback) {
     if(enviado) { callback(); return; }
-    fetch(URL_SCRIPT
+    fetch(URL_SCRIPT, { method: 'POST', body: JSON.stringify(datos) })
+    .then(r => r.json())
+    .then(res => { enviado = true; callback(); })
+    .catch(e => { alert("Error al enviar respuestas: "+e); callback(); });
+}
+</script>
+</body>
+</html>
