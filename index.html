@@ -46,9 +46,7 @@
     <!-- CARÁTULA -->
     <div id="caratula">
         <h1>Evaluación de la precisión diagnóstica en dermatología clínica mediante imágenes</h1>
-        <h2>Encuesta web</h2>
         <p><b>Autor:</b> Allccarima Ramos, Walter</p>
-        <p>Universidad Nacional Mayor de San Marcos — 2025</p>
         <button class="btn-mayor" style="width:100%;margin-top:25px;" onclick="aConsent()">Comenzar →</button>
     </div>
 
@@ -204,7 +202,10 @@ function mostrarPreguntas() {
             </div>
             <div class="buttons">
                 ${p.num > 1 ? `<button onclick="mostrarP(${p.num-1})">← Anterior</button>` : '<div></div>'}
-                <button onclick="responder(${p.num})">${p.num === 15 ? 'Finalizar' : 'Siguiente →'}</button>
+                ${p.num !== 15
+                  ? `<button onclick="responder(${p.num})">Siguiente →</button>`
+                  : `<button id="finalizarBtn" onclick="responder(${p.num})">Finalizar</button>`
+                }
             </div>
         `;
         div.appendChild(sec);
@@ -219,8 +220,17 @@ function mostrarP(n) {
 }
 function responder(n) {
     if(!datos.r[n]){alert('Selecciona un diagnóstico');return;}
-    if(n === 15) finalizarCuestionario();
-    else mostrarP(n + 1);
+    if(n === 15) {
+        // Bloquea y muestra "Cargando..." al finalizar
+        const btn = document.getElementById('finalizarBtn');
+        if(btn){
+            btn.disabled = true;
+            btn.textContent = "Cargando…";
+        }
+        finalizarCuestionario();
+    } else {
+        mostrarP(n + 1);
+    }
 }
 function finalizarCuestionario() {
     let correctas = 0;
