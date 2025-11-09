@@ -1,395 +1,530 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Validación CPDD</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(135deg,#001a4d,#003d99);font-family:Arial,sans-serif;padding:20px;min-height:100vh}
-.app{max-width:900px;margin:0 auto;background:#fff;border-radius:12px;padding:50px;box-shadow:0 0 30px rgba(0,0,0,0.3)}
-.encabezado{text-align:center;margin-bottom:40px;padding-bottom:20px;border-bottom:3px solid #001a4d}
-.encabezado h1{font-size:28px;color:#001a4d;margin-bottom:10px}
-.encabezado p{color:#0052cc;font-size:13px}
-.progreso{background:#e0e0e0;height:8px;border-radius:5px;margin:20px 0;overflow:hidden}
-.progreso-barra{background:#001a4d;height:100%;width:5%;transition:width 0.4s}
-.contador{text-align:center;font-size:12px;color:#666;margin-bottom:15px}
-.contenedor-paginas{min-height:400px;position:relative}
-.pagina{display:none}
-.pagina.visible{display:block;animation:entrada 0.3s}
-@keyframes entrada{from{opacity:0}to{opacity:1}}
-.titulo-pagina{font-size:16px;font-weight:bold;color:#001a4d;border-bottom:2px solid #001a4d;padding-bottom:10px;margin-bottom:20px}
-.campo{margin:20px 0}
-.campo label{display:block;font-weight:bold;font-size:13px;margin-bottom:8px;color:#333}
-.campo input{width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:14px;font-family:Arial}
-.campo input:focus{outline:none;border-color:#001a4d;box-shadow:0 0 8px rgba(0,26,77,0.2)}
-.grupo-checkbox{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
-.item-checkbox{display:flex;gap:8px;align-items:center}
-.item-checkbox input{width:16px;height:16px;cursor:pointer}
-.item-checkbox label{margin:0;font-size:12px;cursor:pointer;font-weight:normal}
-.aviso-consentimiento{background:#e8f4ff;border-left:4px solid #001a4d;padding:15px;border-radius:6px;font-size:12px;line-height:1.8;margin-bottom:20px}
-.aviso-consentimiento p{margin:8px 0}
-.aviso-consentimiento ul{margin-left:25px;margin-top:10px}
-.aviso-consentimiento li{margin:5px 0}
-.checkbox-unico{display:flex;gap:10px;align-items:flex-start;margin:20px 0}
-.checkbox-unico input{width:18px;height:18px;cursor:pointer;margin-top:2px}
-.checkbox-unico label{font-size:12px;cursor:pointer;margin:0;font-weight:normal}
-.recordatorio{background:#e3f2ff;border-left:3px solid #1976d2;padding:12px;border-radius:5px;font-size:11px;color:#0d47a1;margin-bottom:20px}
-.bloque-imagen{background:#f5f5f5;border-left:4px solid #0066cc;padding:18px;border-radius:6px;margin-bottom:20px}
-.titulo-imagen{font-weight:bold;font-size:15px;color:#001a4d;margin-bottom:12px}
-.area-imagen{width:100%;height:250px;border:2px solid #0066cc;border-radius:6px;display:flex;align-items:center;justify-content:center;background:#fff;color:#0066cc;font-size:13px;margin-bottom:15px;overflow:hidden}
-.area-imagen img{max-width:100%;max-height:100%;object-fit:contain}
-.item-criterio{margin-bottom:15px}
-.etiqueta-criterio{font-size:11px;font-weight:bold;color:#333;margin-bottom:8px}
-.botones-calificacion{display:flex;gap:6px}
-.botones-calificacion button{flex:1;padding:8px;border:2px solid #ddd;background:#fff;border-radius:4px;cursor:pointer;font-weight:bold;font-size:12px;transition:all 0.2s}
-.botones-calificacion button:hover{border-color:#0066cc;background:#e8f4ff}
-.botones-calificacion button.marcado{background:#001a4d;color:#fff;border-color:#001a4d}
-.caja-resumen{background:#e8f4ff;border-left:4px solid #001a4d;padding:15px;border-radius:6px;margin-bottom:20px}
-.linea-resumen{font-size:12px;margin:8px 0}
-.linea-resumen strong{color:#001a4d}
-.tabla-resultados{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;font-size:12px;box-shadow:0 1px 5px rgba(0,0,0,0.1)}
-.tabla-resultados th{background:#001a4d;color:#fff;padding:10px;text-align:left;font-weight:bold}
-.tabla-resultados td{padding:10px;border-bottom:1px solid #eee}
-.tabla-resultados tr:nth-child(even){background:#f9f9f9}
-.seccion-resultado{text-align:center}
-.titulo-resultado{font-size:24px;color:#001a4d;margin-bottom:25px;font-weight:bold}
-.mensaje-exito{background:#e8f5e9;color:#2e7d32;padding:15px;border-radius:6px;border-left:4px solid #2e7d32;margin-top:20px;font-size:13px;display:none}
-.grupo-botones{display:flex;gap:12px;margin-top:40px;justify-content:space-between}
-.boton{padding:12px 24px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:14px;transition:all 0.2s}
-.boton-atras{background:#ddd;color:#333}
-.boton-atras:hover:not(:disabled){background:#ccc}
-.boton-atras:disabled{opacity:0.5;cursor:not-allowed}
-.boton-siguiente{background:#001a4d;color:#fff;flex:1;margin-left:10px}
-.boton-siguiente:hover:not(:disabled){background:#003d99}
-.boton-siguiente:disabled{opacity:0.4;cursor:not-allowed}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Encuesta CPDD-IC</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #003366;
+    }
+    .container {
+      background-color: white;
+      max-width: 900px;
+      width: 100%;
+      padding: 50px 40px 60px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    #caratula h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      font-weight: 900;
+      color: #001f4d;
+    }
+    #caratula h2 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      font-weight: 800;
+      color: #002a75;
+    }
+    #caratula p {
+      font-size: 1.15rem;
+      margin: 8px 0;
+      color: #004080;
+    }
+    #caratula .objetivo {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #0059b3;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button.btn-mayor {
+      margin-top: 40px;
+      font-size: 1.4rem;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 12px;
+      background: #0066cc;
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s ease;
+    }
+    button.btn-mayor:hover {
+      background: #004a99;
+    }
+    h1, h2 {
+      color: #003366;
+      margin-bottom: 18px;
+    }
+    p, label {
+      color: #444;
+      margin: 15px 0;
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .form-group {
+      margin: 25px 0;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    input[type="number"]:focus, select:focus {
+      outline: none;
+      border-color: #003366;
+    }
+    /* Radio group con iconos */
+    .radio-group {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #003366;
+      font-size: 1rem;
+    }
+    .radio-option input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .radio-icon {
+      font-size: 24px;
+      color: #004d99;
+      vertical-align: middle;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+    .imagen-container {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    img.cuadro {
+      max-width: 100%;
+      height: 380px;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 2px solid #003366;
+    }
+    img.mini {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #ddd;
+      border-radius: 5px;
+      margin-bottom: 12px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #003366;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      font-size: 13px;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 9px;
+      text-align: center;
+    }
+    table th {
+      background: #003366;
+      color: white;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    .buttons button {
+      flex: 1;
+    }
+    button {
+      padding: 12px 30px;
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover:not(:disabled) {
+      background: #004d99;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .consent-box {
+      background: #f0f4f8;
+      padding: 25px 35px;
+      border-radius: 10px;
+      border-left: 6px solid #003366;
+      margin: 34px 0;
+      text-align: left;
+    }
+    .checkbox-center {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .checkbox-center input {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+    .final-mensaje {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      border-radius: 10px;
+      padding: 26px;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .final-mensaje h2 {
+      color: #2e7d32;
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+    .final-mensaje p {
+      color: #558b2f;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
 
-<div class="app">
+    <!-- CARÁTULA -->
+    <div id="caratula">
+      <h1>CPDD-IC</h1>
+      <h2>Evaluación de la precisión diagnóstica en dermatología clínica mediante imágenes</h2>
+      <p><b>Autor:</b> Allccarima Ramos, Walter</p>
+      <p class="objetivo">
+        <em>Objetivo:</em> Evaluar la capacidad diagnóstica de los internos de medicina en patologías dermatológicas a través de imágenes clínicas.
+      </p>
+      <button class="btn-mayor" style="width: 100%; margin-top: 25px;" onclick="aConsent()">Comenzar →</button>
+    </div>
 
-<div class="encabezado">
-<h1>VALIDACIÓN DE EXPERTOS</h1>
-<p>Cuestionario de Precisión Diagnóstica Dermatológica - CPDD-IC</p>
-</div>
+    <!-- CONSENTIMIENTO INFORMADO -->
+    <div id="consentimiento" class="hidden">
+      <h1>Consentimiento informado - Encuesta</h1>
+      <div class="consent-box">
+        <p><strong>Nombre del estudio:</strong> Evaluación de la precisión diagnóstica en dermatología clínica mediante imágenes.</p>
+        <p><strong>Responsable:</strong> Allccarima Ramos, Walter. Universidad Nacional Mayor de San Marcos.</p>
+        <p><strong>Objetivo:</strong> Evaluar la capacidad diagnóstica en patologías dermatológicas a través de imágenes clínicas, en internos de medicina de la UNMSM en 2025.</p>
+        <ul>
+          <li>La participación es voluntaria y anónima. No hay riesgos ni beneficios directos.</li>
+          <li>La información será utilizada únicamente para fines académicos y de investigación.</li>
+          <li>Puede retirarse en cualquier momento sin repercusión alguna.</li>
+          <li>Los datos se almacenan de forma confidencial y cumplirán normas éticas internacionales.</li>
+        </ul>
+        <p>Al dar click en "Acepto participar", <strong>declaro haber leído y comprendido la información</strong> y autorizo el uso de mis datos en este estudio.</p>
+      </div>
+      <div class="checkbox-center">
+        <input type="checkbox" id="aceptoConsentimiento" /> <label for="aceptoConsentimiento">Acepto participar voluntariamente</label>
+      </div>
+      <div class="error" id="error-cons"></div>
+      <button onclick="seguirADemografia()" id="btnConsentir" style="width: 100%;">Continuar →</button>
+    </div>
 
-<div class="contador">
-<span id="contador-paginas">Página 1 de 19</span>
-</div>
+    <!-- DATOS DEMOGRÁFICOS -->
+    <div id="demo" class="hidden">
+      <h1>Datos Demográficos</h1>
+      <div class="form-group">
+        <label>Edad (años):</label>
+        <input type="number" id="edad" min="18" max="60" />
+        <div class="error" id="err-edad"></div>
+      </div>
+      <div class="form-group">
+        <label>Sexo biológico:</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="sexo" value="M" id="m" />
+            <label for="m">&#9794; Masculino</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="sexo" value="F" id="f" />
+            <label for="f">&#9792; Femenino</label>
+          </div>
+        </div>
+        <div class="error" id="err-sexo"></div>
+      </div>
+      <div class="form-group">
+        <label>Institución donde realiza el internado:</label>
+        <select id="inst">
+          <option value="">-- Selecciona --</option>
+          <option value="MINSA">MINSA</option>
+          <option value="EsSalud">EsSalud</option>
+          <option value="FFAA">Fuerzas Armadas</option>
+          <option value="Privadas">Clínicas Privadas</option>
+        </select>
+        <div class="error" id="err-inst"></div>
+      </div>
+      <button onclick="validarDemo()" style="width: 100%; padding: 15px;">Siguiente →</button>
+    </div>
 
-<div class="progreso">
-<div class="progreso-barra" id="barra-progreso"></div>
-</div>
+    <!-- PREGUNTAS -->
+    <div id="preguntas" class="hidden"></div>
 
-<div class="contenedor-paginas">
+    <!-- RESULTADOS -->
+    <div id="resultados" class="hidden">
+      <h1>📊 Resultados</h1>
+      <div id="contenido-resultados"></div>
+    </div>
+  </div>
 
-<!-- PÁGINA 0: DATOS -->
-<div class="pagina visible" id="pagina-0">
-<div class="titulo-pagina">1. DATOS DEL ESPECIALISTA</div>
-<div class="campo">
-<label>Nombre completo *</label>
-<input type="text" id="nombre" oninput="verificar_boton()">
-</div>
-<div class="campo">
-<label>Cédula Médica (CMP) *</label>
-<input type="text" id="cmp" oninput="verificar_boton()">
-</div>
-<div class="campo">
-<label>Registro Nacional Especialista (RNE) *</label>
-<input type="text" id="rne" oninput="verificar_boton()">
-</div>
-<div class="campo">
-<label>Email *</label>
-<input type="email" id="email" oninput="verificar_boton()">
-</div>
-<div class="campo">
-<label>Institución(es) donde trabaja (Marque al menos una)</label>
-<div class="grupo-checkbox">
-<div class="item-checkbox"><input type="checkbox" id="inst-1" value="MINSA" onchange="verificar_boton()"><label for="inst-1">MINSA</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-2" value="EsSalud" onchange="verificar_boton()"><label for="inst-2">EsSalud</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-3" value="Hospital Privado" onchange="verificar_boton()"><label for="inst-3">Hospital Privado</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-4" value="Clínica Privada" onchange="verificar_boton()"><label for="inst-4">Clínica Privada</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-5" value="Consultorio" onchange="verificar_boton()"><label for="inst-5">Consultorio Privado</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-6" value="Universidad" onchange="verificar_boton()"><label for="inst-6">Universidad</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-7" value="Instituto" onchange="verificar_boton()"><label for="inst-7">Instituto</label></div>
-<div class="item-checkbox"><input type="checkbox" id="inst-8" value="Otro" onchange="verificar_boton()"><label for="inst-8">Otro</label></div>
-</div>
-</div>
-<div class="campo">
-<label>Años de experiencia en dermatología *</label>
-<input type="number" id="experiencia" min="1" max="80" oninput="verificar_boton()">
-</div>
-</div>
+  <script>
+    const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxIaE-VKXXdLpnkKxa2fZoivpAq9jQSuxHFS0_8XohKnHZsHRv5zWqTfBsabo9VL8oh/exec";
 
-<!-- PÁGINA 1: CONSENTIMIENTO -->
-<div class="pagina" id="pagina-1">
-<div class="titulo-pagina">2. CONSENTIMIENTO INFORMADO</div>
-<div class="aviso-consentimiento">
-<p><strong>Estimado especialista:</strong></p>
-<p>Se solicita su participación como experto en la validación de un instrumento de evaluación diagnóstica dermatológica.</p>
-<p><strong>Sus derechos:</strong></p>
-<ul>
-<li>Su participación es completamente voluntaria</li>
-<li>Puede retirarse en cualquier momento</li>
-<li>Sus datos serán tratados de forma confidencial</li>
-<li>Los datos se utilizarán únicamente con fines académicos</li>
-</ul>
-</div>
-<div class="checkbox-unico">
-<input type="checkbox" id="consentimiento" onchange="verificar_boton()">
-<label for="consentimiento">Acepto participar voluntariamente y autorizo el uso de mis datos</label>
-</div>
-</div>
+    const PREGUNTAS = [
+      { num: 1, correcto: "Dermatitis de contacto alérgica", img: "Dermatitis de contacto.jpg" },
+      { num: 2, correcto: "Dermatitis atópica", img: "Dermatitis atópica.jpg" },
+      { num: 3, correcto: "Queratosis seborreica", img: "Queratosis seborreica.jpg" },
+      { num: 4, correcto: "Impétigo no bulloso", img: "Impétigo.jpg" },
+      { num: 5, correcto: "Psoriasis", img: "Psoriasis.jpg" },
+      { num: 6, correcto: "Melanoma", img: "Melanoma.jpg" },
+      { num: 7, correcto: "Acné vulgar", img: "Acné.jpg" },
+      { num: 8, correcto: "Verruga vulgar", img: "Verruga vulgar.jpg" },
+      { num: 9, correcto: "Rosácea", img: "Rosácea.jpg" },
+      { num: 10, correcto: "Tiña corporis", img: "Tiña corporis.jpg" },
+      { num: 11, correcto: "Carcinoma basocelular", img: "Carcinoma basocelular.jpg" },
+      { num: 12, correcto: "Nevo melanocítico común", img: "Nevus.jpeg" },
+      { num: 13, correcto: "Lentigo solar", img: "Lentigo solar.jpg" },
+      { num: 14, correcto: "Queratosis actínica", img: "Queratosis actínica.jpg" },
+      { num: 15, correcto: "Molusco contagioso", img: "Molusco contagioso.jpg" }
+    ];
 
-<!-- PÁGINA 2: INSTRUCCIONES -->
-<div class="pagina" id="pagina-2">
-<div class="titulo-pagina">3. INSTRUCCIONES PARA LA EVALUACIÓN</div>
-<h3 style="color:#001a4d;margin-bottom:12px;font-size:14px">Escala de Calificación (1-5):</h3>
-<div style="margin-bottom:15px">
-<h4 style="color:#0066cc;font-size:13px;margin-bottom:8px">Representatividad Diagnóstica:</h4>
-<ul style="margin-left:25px;font-size:12px;line-height:1.7">
-<li><strong>1-2:</strong> No representativa</li>
-<li><strong>3:</strong> Moderadamente representativa</li>
-<li><strong>4-5:</strong> Representativa o altamente representativa</li>
-</ul>
-</div>
-<div style="margin-bottom:15px">
-<h4 style="color:#0066cc;font-size:13px;margin-bottom:8px">Calidad Técnica Fotográfica:</h4>
-<ul style="margin-left:25px;font-size:12px;line-height:1.7">
-<li><strong>1-2:</strong> Pobre/regular</li>
-<li><strong>3:</strong> Aceptable</li>
-<li><strong>4-5:</strong> Buena/excelente</li>
-</ul>
-</div>
-<div style="margin-bottom:15px">
-<h4 style="color:#0066cc;font-size:13px;margin-bottom:8px">Ausencia de Sesgo Visual:</h4>
-<ul style="margin-left:25px;font-size:12px;line-height:1.7">
-<li><strong>1-2:</strong> Presencia evidente de pistas</li>
-<li><strong>3:</strong> Pocas pistas sesgadas</li>
-<li><strong>4-5:</strong> Sin pistas no intencionadas</li>
-</ul>
-</div>
-</div>
+    const OPCIONES = [
+      "Acné vulgar",
+      "Carcinoma basocelular",
+      "Dermatitis atópica",
+      "Dermatitis de contacto alérgica",
+      "Impétigo no bulloso",
+      "Lentigo solar",
+      "Melanoma",
+      "Molusco contagioso",
+      "Nevo melanocítico común",
+      "Psoriasis",
+      "Queratosis actínica",
+      "Queratosis seborreica",
+      "Rosácea",
+      "Tiña corporis",
+      "Verruga vulgar"
+    ];
 
-<!-- PÁGINAS 3-17: 15 IMÁGENES -->
-<div id="contenedor-imagenes"></div>
+    let datos = {},
+      enviado = false;
 
-<!-- PÁGINA 18: RESULTADOS -->
-<div class="pagina" id="pagina-18">
-<div class="seccion-resultado">
-<div class="titulo-resultado">✓ Validación Completada</div>
-<div class="caja-resumen">
-<div class="linea-resumen"><strong>Evaluador:</strong> <span id="res-nombre"></span></div>
-<div class="linea-resumen"><strong>CMP:</strong> <span id="res-cmp"></span></div>
-<div class="linea-resumen"><strong>Institución(es):</strong> <span id="res-institucion"></span></div>
-<div class="linea-resumen"><strong>Fecha:</strong> <span id="res-fecha"></span></div>
-</div>
-<h3 style="color:#001a4d;margin:20px 0 12px 0;font-size:14px">Resumen de Evaluaciones</h3>
-<table class="tabla-resultados">
-<thead><tr><th>#</th><th>Patología</th><th>Rep</th><th>Cal</th><th>Ses</th></tr></thead>
-<tbody id="cuerpo-tabla"></tbody>
-</table>
-<div class="mensaje-exito" id="exito">Los datos han sido enviados, gracias.</div>
-</div>
-</div>
-
-</div>
-
-<!-- BOTONES NAVEGACIÓN -->
-<div class="grupo-botones">
-<button class="boton boton-atras" onclick="ir_pagina_anterior()" id="btn-atras" style="display:none">← Anterior</button>
-<button class="boton boton-siguiente" onclick="ir_pagina_siguiente()" id="btn-siguiente" disabled>Siguiente →</button>
-</div>
-
-</div>
-
-<script>
-const PATOLOGIAS=[
-{id:1,nombre:"Dermatitis de contacto alérgica",img:"Dermatitis de contacto.jpg"},
-{id:2,nombre:"Dermatitis atópica",img:"Dermatitis atópica.jpg"},
-{id:3,nombre:"Queratosis seborreica",img:"Queratosis seborreica.jpg"},
-{id:4,nombre:"Impétigo no bulloso",img:"Impétigo.jpg"},
-{id:5,nombre:"Psoriasis",img:"Psoriasis.jpg"},
-{id:6,nombre:"Melanoma",img:"Melanoma.jpg"},
-{id:7,nombre:"Acné vulgar",img:"Acné.jpg"},
-{id:8,nombre:"Verruga vulgar",img:"Verruga vulgar.jpg"},
-{id:9,nombre:"Rosácea",img:"Rosácea.jpg"},
-{id:10,nombre:"Tiña corporis",img:"Tiña corporis.jpg"},
-{id:11,nombre:"Carcinoma basocelular",img:"Carcinoma basocelular.jpg"},
-{id:12,nombre:"Nevo melanocítico común",img:"Nevus.jpeg"},
-{id:13,nombre:"Lentigo solar",img:"Lentigo solar.jpg"},
-{id:14,nombre:"Queratosis actínica",img:"Queratosis actínica.jpg"},
-{id:15,nombre:"Molusco contagioso",img:"Molusco contagioso.jpg"}
-];
-
-const URL_SHEETS="https://script.google.com/macros/s/AKfycbyxZCAgusxSXraIDSG0rfeedWQiial_FHWACECKzF8Sy-TbZ5OaJ1Pj3rqTkxD9dpMu/exec";
-
-let pagina=0;
-let evals={};
-let usuario={};
-
-function crear_imagenes(){
-const cont=document.getElementById("contenedor-imagenes");
-PATOLOGIAS.forEach((p,i)=>{
-const div=document.createElement("div");
-div.className="pagina";
-div.id="pagina-"+(i+3);
-div.innerHTML=`
-<div class="recordatorio">Califique cada criterio de 1 (inaceptable) a 5 (excelente)</div>
-<div class="bloque-imagen">
-<div class="titulo-imagen">Imagen ${p.id}: ${p.nombre}</div>
-<div class="area-imagen"><img src="${p.img}" alt="${p.nombre}"></div>
-<div class="item-criterio">
-<div class="etiqueta-criterio">Representatividad diagnóstica</div>
-<div class="botones-calificacion">
-<button type="button" onclick="calif(${p.id},'rep',1)">1</button>
-<button type="button" onclick="calif(${p.id},'rep',2)">2</button>
-<button type="button" onclick="calif(${p.id},'rep',3)">3</button>
-<button type="button" onclick="calif(${p.id},'rep',4)">4</button>
-<button type="button" onclick="calif(${p.id},'rep',5)">5</button>
-</div>
-</div>
-<div class="item-criterio">
-<div class="etiqueta-criterio">Calidad técnica fotográfica</div>
-<div class="botones-calificacion">
-<button type="button" onclick="calif(${p.id},'cal',1)">1</button>
-<button type="button" onclick="calif(${p.id},'cal',2)">2</button>
-<button type="button" onclick="calif(${p.id},'cal',3)">3</button>
-<button type="button" onclick="calif(${p.id},'cal',4)">4</button>
-<button type="button" onclick="calif(${p.id},'cal',5)">5</button>
-</div>
-</div>
-<div class="item-criterio">
-<div class="etiqueta-criterio">Ausencia de sesgo visual</div>
-<div class="botones-calificacion">
-<button type="button" onclick="calif(${p.id},'ses',1)">1</button>
-<button type="button" onclick="calif(${p.id},'ses',2)">2</button>
-<button type="button" onclick="calif(${p.id},'ses',3)">3</button>
-<button type="button" onclick="calif(${p.id},'ses',4)">4</button>
-<button type="button" onclick="calif(${p.id},'ses',5)">5</button>
-</div>
-</div>
-</div>
-`;
-cont.appendChild(div);
-});
-}
-
-function calif(id,tipo,val){
-if(!evals[id])evals[id]={};
-evals[id][tipo]=val;
-event.target.parentNode.querySelectorAll("button").forEach(b=>b.classList.remove("marcado"));
-event.target.classList.add("marcado");
-verificar_boton();
-}
-
-function cambiar(){
-document.querySelectorAll(".pagina").forEach(p=>p.classList.remove("visible"));
-document.getElementById("pagina-"+pagina).classList.add("visible");
-document.getElementById("contador-paginas").textContent="Página "+(pagina+1)+" de 19";
-document.getElementById("barra-progreso").style.width=((pagina+1)/19*100)+"%";
-document.getElementById("btn-atras").style.display=pagina===0?"none":"block";
-let btn=document.getElementById("btn-siguiente");
-btn.textContent=pagina===17?"Enviar Validación ✓":"Siguiente →";
-verificar_boton();
-}
-
-function verificar_boton(){
-let btn=document.getElementById("btn-siguiente");
-if(pagina===0){
-let n=document.getElementById("nombre").value.trim();
-let c=document.getElementById("cmp").value.trim();
-let e=document.getElementById("email").value.trim();
-let ex=document.getElementById("experiencia").value.trim();
-let inst=Array.from(document.querySelectorAll("#inst-1,#inst-2,#inst-3,#inst-4,#inst-5,#inst-6,#inst-7,#inst-8")).some(i=>i.checked);
-btn.disabled=!(n&&c&&e&&ex&&inst);
-}else if(pagina===1){
-btn.disabled=!document.getElementById("consentimiento").checked;
-}else if(pagina===2){
-btn.disabled=false;
-}else if(pagina>=3&&pagina<=17){
-let id=pagina-2;
-let v=evals[id];
-btn.disabled=!(v&&v.rep&&v.cal&&v.ses);
-}
-}
-
-function ir_pagina_siguiente(){
-if(pagina===17){
-procesar();
-return;
-}
-if(pagina<18){
-pagina++;
-cambiar();
-}
-}
-
-function ir_pagina_anterior(){
-if(pagina>0){
-pagina--;
-cambiar();
-}
-}
-
-function procesar(){
-usuario={
-ts:new Date().toLocaleDateString("es-PE")+" "+new Date().toLocaleTimeString("es-PE"),
-nombre:document.getElementById("nombre").value.trim(),
-cmp:document.getElementById("cmp").value.trim(),
-rne:document.getElementById("rne").value.trim(),
-email:document.getElementById("email").value.trim(),
-inst:Array.from(document.querySelectorAll("#inst-1,#inst-2,#inst-3,#inst-4,#inst-5,#inst-6,#inst-7,#inst-8")).filter(i=>i.checked).map(i=>i.value).join(", "),
-exp:document.getElementById("experiencia").value.trim(),
-fecha:new Date().toLocaleDateString("es-PE"),
-evaluaciones:evals
-};
-
-document.getElementById("btn-siguiente").disabled=true;
-document.getElementById("btn-siguiente").textContent="Enviando...";
-
-fetch(URL_SHEETS,{
-method:"POST",
-body:JSON.stringify(usuario)
-}).then(r=>r.json()).then(d=>{
-console.log("Respuesta:",d);
-mostrar();
-}).catch(err=>{
-console.error("Error:",err);
-mostrar();
-});
-}
-
-function mostrar(){
-pagina=18;
-cambiar();
-
-document.getElementById("res-nombre").textContent=usuario.nombre;
-document.getElementById("res-cmp").textContent=usuario.cmp;
-document.getElementById("res-institucion").textContent=usuario.inst;
-document.getElementById("res-fecha").textContent=usuario.fecha;
-
-let tb=document.getElementById("cuerpo-tabla");
-tb.innerHTML="";
-
-PATOLOGIAS.forEach(p=>{
-let v=usuario.evaluaciones[p.id];
-if(v){
-let tr=document.createElement("tr");
-tr.innerHTML=`<td>${p.id}</td><td>${p.nombre}</td><td>${v.rep}</td><td>${v.cal}</td><td>${v.ses}</td>`;
-tb.appendChild(tr);
-}
-});
-
-document.getElementById("btn-siguiente").style.display="none";
-document.getElementById("btn-atras").style.display="none";
-document.getElementById("exito").style.display="block";
-}
-
-crear_imagenes();
-cambiar();
-</script>
-
+    function limpiar() {
+      ["caratula", "consentimiento", "inicio", "demo", "preguntas", "resultados"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+      });
+    }
+    function aConsent() {
+      limpiar();
+      document.getElementById("consentimiento").classList.remove("hidden");
+    }
+    function seguirADemografia() {
+      document.getElementById("error-cons").textContent = "";
+      if (!document.getElementById("aceptoConsentimiento").checked) {
+        document.getElementById("error-cons").textContent = "Debes aceptar el consentimiento para continuar";
+        return;
+      }
+      limpiar();
+      document.getElementById("demo").classList.remove("hidden");
+    }
+    function validarDemo() {
+      const edad = document.getElementById("edad").value;
+      const sexo = document.querySelector('input[name="sexo"]:checked');
+      const inst = document.getElementById("inst").value;
+      document.getElementById("err-edad").textContent = "";
+      document.getElementById("err-sexo").textContent = "";
+      document.getElementById("err-inst").textContent = "";
+      if (!edad || edad < 18 || edad > 60) {
+        document.getElementById("err-edad").textContent = "Edad inválida";
+        return;
+      }
+      if (!sexo) {
+        document.getElementById("err-sexo").textContent = "Selecciona sexo";
+        return;
+      }
+      if (!inst) {
+        document.getElementById("err-inst").textContent = "Selecciona institución";
+        return;
+      }
+      datos = { edad: edad, sexo: sexo.value, inst: inst, r: {} };
+      mostrarPreguntas();
+    }
+    function mostrarPreguntas() {
+      limpiar();
+      const div = document.getElementById("preguntas");
+      div.innerHTML = "";
+      div.classList.remove("hidden");
+      PREGUNTAS.forEach((p) => {
+        const sec = document.createElement("div");
+        sec.id = "p" + p.num;
+        sec.style.display = "none";
+        sec.innerHTML = `
+            <div class="progress-bar"><div class="progress-fill" style="width:${(p.num * 100) / 15}%"></div></div>
+            <h2>Pregunta ${p.num} de 15</h2>
+            <div class="imagen-container"><img class="cuadro" src="${p.img}" alt="P${p.num}"></div>
+            <div class="form-group">
+                <label>Selecciona el diagnóstico:</label>
+                <select id="r${p.num}" onchange="datos.r[${p.num}]=this.value">
+                    <option value="">-- Selecciona una opción --</option>
+                    ${OPCIONES.map((o) => `<option value="${o}">${o}</option>`).join("")}
+                </select>
+            </div>
+            <div class="buttons">
+                ${
+                  p.num > 1
+                    ? `<button onclick="mostrarP(${p.num - 1})">← Anterior</button>`
+                    : "<div></div>"
+                }
+                ${
+                  p.num !== 15
+                    ? `<button onclick="responder(${p.num})">Siguiente →</button>`
+                    : `<button id="finalizarBtn" onclick="responder(${p.num})">Finalizar</button>`
+                }
+            </div>
+        `;
+        div.appendChild(sec);
+      });
+      mostrarP(1);
+    }
+    function mostrarP(n) {
+      document.querySelectorAll("#preguntas > div").forEach((d) => (d.style.display = "none"));
+      document.getElementById("p" + n).style.display = "block";
+      if (datos.r[n]) document.getElementById("r" + n).value = datos.r[n];
+      window.scrollTo(0, 0);
+    }
+    function responder(n) {
+      if (!datos.r[n]) {
+        alert("Selecciona un diagnóstico");
+        return;
+      }
+      if (n === 15) {
+        const btn = document.getElementById("finalizarBtn");
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Cargando…";
+        }
+        finalizarCuestionario();
+      } else {
+        mostrarP(n + 1);
+      }
+    }
+    function finalizarCuestionario() {
+      let correctas = 0;
+      PREGUNTAS.forEach((p) => {
+        if (datos.r[p.num] === p.correcto) correctas++;
+      });
+      datos.precision = Math.round((correctas * 100) / 15);
+      enviar(() => mostrarResultados(correctas));
+    }
+    function mostrarResultados(correctas) {
+      let tabla = `<table><tr>
+        <th>N°</th>
+        <th>Tu respuesta<br>Imagen</th>
+        <th>Patología correcta<br>Imagen</th>
+        <th>Resultado</th>
+      </tr>`;
+      PREGUNTAS.forEach((p) => {
+        const resp = datos.r[p.num];
+        const ok = resp === p.correcto;
+        const imgResp = OPCIONES.includes(resp)
+          ? `<img class="mini" src="${buscarImagen(resp)}" alt="">`
+          : "-";
+        tabla += `<tr>
+          <td>${p.num}</td>
+          <td>${resp || "--"}<br>${imgResp}</td>
+          <td>${p.correcto}<br><img class="mini" src="${p.img}" alt=""></td>
+          <td style="color:${ok ? "green" : "red"};font-weight:bold">${ok ? "✓" : "✗"}</td>
+        </tr>`;
+      });
+      tabla += "</table>";
+      limpiar();
+      const div = document.getElementById("resultados");
+      div.classList.remove("hidden");
+      div.innerHTML = `
+        <h1>📊 Resultados</h1>
+        <div style="background:#f0f4f8;padding:18px 0 15px 0; border-radius:8px;text-align:center;">
+          <p><b>Correctas:</b> ${correctas}/15</p>
+          <p><b>Precisión:</b> ${datos.precision}%</p>
+        </div>
+        <h3 style="color:#003366;margin:30px 0 15px;text-align:center">
+          Detalle de respuestas:
+        </h3>
+        ${tabla}
+        <div class="final-mensaje">
+          <h2>✓ ¡Gracias por participar!</h2>
+          <p>Tu encuesta ha sido enviada exitosamente.</p>
+        </div>
+      `;
+      window.scrollTo(0, 0);
+    }
+    function buscarImagen(nombrePatologia) {
+      let p = PREGUNTAS.find((q) => q.correcto === nombrePatologia);
+      return p ? p.img : "";
+    }
+    function enviar(callback) {
+      if (enviado) {
+        callback();
+        return;
+      }
+      fetch(URL_SCRIPT, { method: "POST", body: JSON.stringify(datos) })
+        .then((r) => r.json())
+        .then((res) => {
+          enviado = true;
+          callback();
+        })
+        .catch((e) => {
+          alert("Error al enviar respuestas: " + e);
+          callback();
+        });
+    }
+  </script>
 </body>
 </html>
