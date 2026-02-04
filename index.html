@@ -206,6 +206,14 @@
       margin: 34px 0;
       text-align: left;
     }
+    .consent-box ul {
+        margin: 10px 0 15px 20px;
+        padding: 0;
+        color: #444;
+    }
+    .consent-box li {
+        margin-bottom: 8px;
+    }
     .checkbox-center {
       text-align: center;
       margin: 20px 0;
@@ -235,7 +243,6 @@
 <body>
   <div class="container">
 
-    <!-- CARÁTULA -->
     <div id="caratula">
       <h1>CPDD-IC</h1>
       <h2>Evaluación de la precisión diagnóstica en dermatología mediante imágenes clínicas</h2>
@@ -246,29 +253,70 @@
       <button class="btn-mayor" style="width: 100%; margin-top: 25px;" onclick="aConsent()">Comenzar →</button>
     </div>
 
-    <!-- CONSENTIMIENTO INFORMADO -->
     <div id="consentimiento" class="hidden">
       <h1>Consentimiento informado - Encuesta</h1>
       <div class="consent-box">
-        <p><strong>Nombre del estudio:</strong> Evaluación de la precisión diagnóstica en dermatología clínica mediante imágenes.</p>
-        <p><strong>Responsable:</strong> Allccarima Ramos, Walter. Universidad Nacional Mayor de San Marcos.</p>
-        <p><strong>Objetivo:</strong> Evaluar la capacidad diagnóstica en patologías dermatológicas a través de imágenes clínicas, en internos de medicina de la UNMSM en 2025.</p>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <p style="margin:0; font-weight:bold;">UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS</p>
+            <p style="margin:5px;">Facultad de Medicina</p>
+        </div>
+
+        <p><strong>TÍTULO DE LA INVESTIGACIÓN:</strong><br>
+        Evaluación de la precisión diagnóstica en dermatología mediante imágenes clínicas en egresados de medicina de la UNMSM en 2025.</p>
+
+        <p><strong>INVESTIGADOR RESPONSABLE:</strong><br>
+        Walter Allccarima Ramos (Egresado/Bachiller, Facultad de Medicina, UNMSM).</p>
+
+        <p><strong>1. PROPÓSITO DEL ESTUDIO:</strong><br>
+        Se le invita a participar en un estudio académico cuyo objetivo principal es evaluar la precisión diagnóstica dermatológica mediante el reconocimiento de imágenes clínicas en egresados de medicina. Los resultados servirán para identificar fortalezas y oportunidades de mejora en la formación médica de pregrado.</p>
+
+        <p><strong>2. PROCEDIMIENTOS:</strong><br>
+        Si acepta participar, se le pedirá completar un cuestionario digital que consta de dos partes:</p>
         <ul>
-          <li>La participación es voluntaria y anónima. No hay riesgos ni beneficios directos.</li>
-          <li>La información será utilizada únicamente para fines académicos y de investigación.</li>
-          <li>Puede retirarse en cualquier momento sin repercusión alguna.</li>
-          <li>Los datos se almacenan de forma confidencial y cumplirán normas éticas internacionales.</li>
+            <li><strong>Datos generales:</strong> Información demográfica y académica básica (edad, sexo, sede de internado).</li>
+            <li><strong>Evaluación diagnóstica:</strong> Visualización de 15 imágenes clínicas dermatológicas estandarizadas. Para cada imagen, deberá seleccionar el diagnóstico más probable de una lista desplegable.</li>
         </ul>
-        <p>Al dar click en "Acepto participar", <strong>declaro haber leído y comprendido la información</strong> y autorizo el uso de mis datos en este estudio.</p>
+
+        <p><strong>3. TIEMPO ESTIMADO:</strong><br>
+        El tiempo estimado para completar el cuestionario es de aproximadamente <strong>20 a 30 minutos</strong>. Puede realizarlo a su propio ritmo.</p>
+
+        <p><strong>4. RIESGOS Y BENEFICIOS:</strong></p>
+        <ul>
+            <li><strong>Riesgos:</strong> Este estudio se considera de <strong>riesgo mínimo</strong>. No implica riesgos físicos ni intervenciones clínicas. Podría experimentar una leve fatiga visual o incomodidad si desconoce alguna respuesta, similar a una evaluación académica estándar.</li>
+            <li><strong>Beneficios:</strong> No recibirá compensación económica ni puntos académicos directos. Sin embargo, su participación contribuirá a generar evidencia para mejorar la enseñanza de la dermatología en futuras promociones.</li>
+        </ul>
+
+        <p><strong>5. CONFIDENCIALIDAD Y ANONIMATO:</strong><br>
+        Toda la información recopilada es <strong>estrictamente confidencial y anónima</strong>.</p>
+        <ul>
+            <li>El cuestionario <strong>NO</strong> recopila su nombre, DNI, ni dirección IP de manera que pueda identificarle personalmente en los resultados.</li>
+            <li>Los datos serán almacenados en servidores seguros y solo tendrán acceso a ellos el investigador principal y su asesor con fines exclusivamente académicos y estadísticos.</li>
+        </ul>
+
+        <p><strong>6. VOLUNTARIEDAD:</strong><br>
+        Su participación es totalmente <strong>voluntaria</strong>. Tiene el derecho de rechazar participar o abandonar el cuestionario en cualquier momento cerrando el navegador, sin que esto implique ninguna sanción académica ni repercusión negativa de ningún tipo.</p>
+
+        <p><strong>7. CONTACTO:</strong><br>
+        Si tiene preguntas sobre el estudio, puede contactar al investigador principal:<br>
+        <em>Walter Allccarima Ramos</em><br>
+        <em>Correo electrónico:</em> [Tu correo institucional @unmsm.edu.pe]<br>
+        <em>Asesor:</em> Dr. Gadwyn Sánchez Félix.</p>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
+        
+        <p><strong>DECLARACIÓN DE CONSENTIMIENTO:</strong></p>
+        <p>He leído la información presentada anteriormente y entiendo el propósito, los procedimientos y la naturaleza voluntaria de este estudio. Comprendo que mis respuestas serán anónimas y se usarán solo para fines de investigación.</p>
+        <p><strong>Al hacer clic en la casilla de verificación (checkbox) y presionar el botón "Continuar", acepto participar voluntariamente en este estudio.</strong></p>
       </div>
+      
       <div class="checkbox-center">
-        <input type="checkbox" id="aceptoConsentimiento" /> <label for="aceptoConsentimiento">Acepto participar voluntariamente</label>
+        <input type="checkbox" id="aceptoConsentimiento" /> 
+        <label for="aceptoConsentimiento" style="display:inline;">SÍ, he leído el consentimiento informado y acepto participar.</label>
       </div>
       <div class="error" id="error-cons"></div>
       <button onclick="seguirADemografia()" id="btnConsentir" style="width: 100%;">Continuar →</button>
     </div>
 
-    <!-- DATOS DEMOGRÁFICOS -->
     <div id="demo" class="hidden">
       <h1>Datos Demográficos</h1>
       <div class="form-group">
@@ -304,10 +352,8 @@
       <button onclick="validarDemo()" style="width: 100%; padding: 15px;">Siguiente →</button>
     </div>
 
-    <!-- PREGUNTAS -->
     <div id="preguntas" class="hidden"></div>
 
-    <!-- RESULTADOS -->
     <div id="resultados" class="hidden">
       <h1>📊 Resultados</h1>
       <div id="contenido-resultados"></div>
